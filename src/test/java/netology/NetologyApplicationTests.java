@@ -34,8 +34,10 @@ class NetologyApplicationTests {
         final var HOST = "http://localhost:";
         final var devPort = 8080;
         final var prodPort = 8081;
-        ResponseEntity<String> devEntity = restTemplate.getForEntity(HOST + devApp.getMappedPort(devPort), String.class);
-        ResponseEntity<String> prodEntity = restTemplate.getForEntity(HOST + prodApp.getMappedPort(prodPort), String.class);
+        final var urlDev = HOST + devApp.getMappedPort(devPort) + "/profile";
+        final var urlProd = HOST + prodApp.getMappedPort(prodPort) + "/profile";
+        final var devEntity = restTemplate.getForEntity(urlDev, String.class);
+        final var prodEntity = restTemplate.getForEntity(urlProd, String.class);
         Assertions.assertEquals("Current profile is dev", devEntity.getBody());
         Assertions.assertEquals("Current profile is production", prodEntity.getBody());
     }
